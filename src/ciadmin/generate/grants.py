@@ -7,6 +7,10 @@ import re
 from tcadmin.resources import Role
 from tcadmin.util.scopes import normalizeScopes
 
+from .ciconfig.externally_managed import (
+    get_externally_managed_patterns,
+    manage_with_exclusions,
+)
 from ..util.matching import (
     GroupGrantee,
     ProjectGrantee,
@@ -217,13 +221,14 @@ async def update_resources(resources):
     grants = await Grant.fetch_all()
     projects = await Project.fetch_all()
     environment = await Environment.current()
+    ext_patterns = await get_externally_managed_patterns()
 
-    # manage our resources..
+    # manage our resources, excluding externally managed patterns
     resources.manage("Role=mozilla-group:.*")
     resources.manage("Role=mozillians-group:.*")
     resources.manage("Role=login-identity:.*")
-    resources.manage("Role=hook-id:.*")
-    resources.manage("Role=project:.*")
+    manage_with_exclusions(resources, "Role=hook-id:.*", ext_patterns)
+    manage_with_exclusions(resources, "Role=project:.*", ext_patterns)
     resources.manage("Role=repo:.*")
 
     # calculate scopes..

@@ -1,0 +1,3294 @@
+ash:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/ash
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/ash
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/ash
+      - --project
+      - ash
+      - --level
+      - '2'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.ash.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.ash.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/ash:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/ash
+  description: 'On-push task for repository https://hg.mozilla.org/projects/ash.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/ash
+                enum:
+                - https://hg.mozilla.org/projects/ash
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+autoland:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/integration/autoland
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/autoland
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/integration/autoland
+      - --project
+      - autoland
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.autoland.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.autoland.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/integration/autoland:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: integration/autoland
+  description: 'On-push task for repository https://hg.mozilla.org/integration/autoland.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/integration/autoland
+                enum:
+                - https://hg.mozilla.org/integration/autoland
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+birch:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/birch
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/birch
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/birch
+      - --project
+      - birch
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.birch.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.birch.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/birch:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/birch
+  description: 'On-push task for repository https://hg.mozilla.org/projects/birch.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/birch
+                enum:
+                - https://hg.mozilla.org/projects/birch
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+cedar:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/cedar
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/cedar
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/cedar
+      - --project
+      - cedar
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.cedar.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.cedar.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/cedar:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/cedar
+  description: 'On-push task for repository https://hg.mozilla.org/projects/cedar.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/cedar
+                enum:
+                - https://hg.mozilla.org/projects/cedar
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+comm-beta:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/comm-beta
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/comm-beta
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-beta
+      - --project
+      - comm-beta
+      - --level
+      - '3'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.comm-beta.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.comm-beta.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/comm-beta:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/comm-beta
+  description: 'On-push task for repository https://hg.mozilla.org/releases/comm-beta.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/comm-beta
+                enum:
+                - https://hg.mozilla.org/releases/comm-beta
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+comm-central:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/comm-central
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/comm-central
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/comm-central
+      - --project
+      - comm-central
+      - --level
+      - '3'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.comm-central.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.comm-central.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/comm-central:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: comm-central
+  description: 'On-push task for repository https://hg.mozilla.org/comm-central.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/comm-central
+                enum:
+                - https://hg.mozilla.org/comm-central
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+comm-esr115:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/comm-esr115
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/comm-esr115
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-esr115
+      - --project
+      - comm-esr115
+      - --level
+      - '3'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.comm-esr115.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.comm-esr115.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/comm-esr115:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/comm-esr115
+  description: 'On-push task for repository https://hg.mozilla.org/releases/comm-esr115.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/comm-esr115
+                enum:
+                - https://hg.mozilla.org/releases/comm-esr115
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+comm-esr128:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/comm-esr128
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/comm-esr128
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-esr128
+      - --project
+      - comm-esr128
+      - --level
+      - '3'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.comm-esr128.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.comm-esr128.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/comm-esr128:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/comm-esr128
+  description: 'On-push task for repository https://hg.mozilla.org/releases/comm-esr128.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/comm-esr128
+                enum:
+                - https://hg.mozilla.org/releases/comm-esr128
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+comm-release:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/comm-release
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/comm-release
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-release
+      - --project
+      - comm-release
+      - --level
+      - '3'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.comm-release.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.comm-release.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/comm-release:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/comm-release
+  description: 'On-push task for repository https://hg.mozilla.org/releases/comm-release.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/comm-release
+                enum:
+                - https://hg.mozilla.org/releases/comm-release
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+cypress:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/cypress
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/cypress
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/cypress
+      - --project
+      - cypress
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.cypress.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.cypress.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/cypress:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/cypress
+  description: 'On-push task for repository https://hg.mozilla.org/projects/cypress.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/cypress
+                enum:
+                - https://hg.mozilla.org/projects/cypress
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+elm:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/elm
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/elm
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/elm
+      - --project
+      - elm
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.elm.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.elm.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/elm:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/elm
+  description: 'On-push task for repository https://hg.mozilla.org/projects/elm.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/elm
+                enum:
+                - https://hg.mozilla.org/projects/elm
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+holly:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/holly
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/holly
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/holly
+      - --project
+      - holly
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.holly.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.holly.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/holly:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/holly
+  description: 'On-push task for repository https://hg.mozilla.org/projects/holly.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/holly
+                enum:
+                - https://hg.mozilla.org/projects/holly
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+jamun:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/jamun
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/jamun
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/jamun
+      - --project
+      - jamun
+      - --level
+      - '2'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.jamun.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.jamun.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/jamun:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/jamun
+  description: 'On-push task for repository https://hg.mozilla.org/projects/jamun.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/jamun
+                enum:
+                - https://hg.mozilla.org/projects/jamun
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+larch:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/larch
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/larch
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.larch.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.larch.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/larch:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/larch
+  description: 'On-push task for repository https://hg.mozilla.org/projects/larch.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/larch
+                enum:
+                - https://hg.mozilla.org/projects/larch
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+maple:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/maple
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/maple
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/maple
+      - --project
+      - maple
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.maple.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.maple.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/maple:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/maple
+  description: 'On-push task for repository https://hg.mozilla.org/projects/maple.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/maple
+                enum:
+                - https://hg.mozilla.org/projects/maple
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+mozilla-beta:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/mozilla-beta
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/mozilla-beta
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.mozilla-beta.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.mozilla-beta.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/mozilla-beta:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/mozilla-beta
+  description: 'On-push task for repository https://hg.mozilla.org/releases/mozilla-beta.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/mozilla-beta
+                enum:
+                - https://hg.mozilla.org/releases/mozilla-beta
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+mozilla-central:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/mozilla-central
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/mozilla-central
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.mozilla-central.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.mozilla-central.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/mozilla-central:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: mozilla-central
+  description: 'On-push task for repository https://hg.mozilla.org/mozilla-central.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/mozilla-central
+                enum:
+                - https://hg.mozilla.org/mozilla-central
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+mozilla-esr115:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/mozilla-esr115
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/mozilla-esr115
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr115
+      - --project
+      - mozilla-esr115
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.mozilla-esr115.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.mozilla-esr115.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/mozilla-esr115:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/mozilla-esr115
+  description: 'On-push task for repository https://hg.mozilla.org/releases/mozilla-esr115.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/mozilla-esr115
+                enum:
+                - https://hg.mozilla.org/releases/mozilla-esr115
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+mozilla-esr128:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/mozilla-esr128
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/mozilla-esr128
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr128
+      - --project
+      - mozilla-esr128
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.mozilla-esr128.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.mozilla-esr128.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/mozilla-esr128:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/mozilla-esr128
+  description: 'On-push task for repository https://hg.mozilla.org/releases/mozilla-esr128.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/mozilla-esr128
+                enum:
+                - https://hg.mozilla.org/releases/mozilla-esr128
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+mozilla-release:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/releases/mozilla-release
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/mozilla-release
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-release
+      - --project
+      - mozilla-release
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.mozilla-release.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.mozilla-release.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/releases/mozilla-release:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: releases/mozilla-release
+  description: 'On-push task for repository https://hg.mozilla.org/releases/mozilla-release.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/releases/mozilla-release
+                enum:
+                - https://hg.mozilla.org/releases/mozilla-release
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+nss:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/nss
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/nss
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/nss
+      - --project
+      - nss
+      - --level
+      - '3'
+      - --trust-domain
+      - nss
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.nss.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.nss.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: nss-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/nss:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/nss
+  description: 'On-push task for repository https://hg.mozilla.org/projects/nss.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/nss
+                enum:
+                - https://hg.mozilla.org/projects/nss
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+nss-try:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/nss-try
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/nss-try
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/nss-try
+      - --project
+      - nss-try
+      - --level
+      - '1'
+      - --trust-domain
+      - nss
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.nss-try.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.nss-try.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: nss-level-1
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/nss-try:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/nss-try
+  description: 'On-push task for repository https://hg.mozilla.org/projects/nss-try.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/nss-try
+                enum:
+                - https://hg.mozilla.org/projects/nss-try
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+oak:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/oak
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/oak
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/oak
+      - --project
+      - oak
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.oak.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.oak.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/oak:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/oak
+  description: 'On-push task for repository https://hg.mozilla.org/projects/oak.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/oak
+                enum:
+                - https://hg.mozilla.org/projects/oak
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+pine:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/pine
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/pine
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.pine.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.pine.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/pine:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/pine
+  description: 'On-push task for repository https://hg.mozilla.org/projects/pine.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/pine
+                enum:
+                - https://hg.mozilla.org/projects/pine
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+toolchains:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/projects/toolchains
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/toolchains
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/projects/toolchains
+      - --project
+      - toolchains
+      - --level
+      - '2'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.toolchains.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.toolchains.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:repo:hg.mozilla.org/projects/toolchains:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: projects/toolchains
+  description: 'On-push task for repository https://hg.mozilla.org/projects/toolchains.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/projects/toolchains
+                enum:
+                - https://hg.mozilla.org/projects/toolchains
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+try:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/try
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/try
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/try
+      - --project
+      - try
+      - --level
+      - '1'
+      - --trust-domain
+      - gecko
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.try.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.try.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: gecko-level-1
+    scopes:
+    - assume:repo:hg.mozilla.org/try:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: try
+  description: 'On-push task for repository https://hg.mozilla.org/try.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/try
+                enum:
+                - https://hg.mozilla.org/try
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object
+try-comm-central:
+  task:
+    deadline:
+      $fromNow: 30 minutes
+    expires:
+      $fromNow: 3 days
+    extra: {}
+    metadata:
+      $let:
+        description:
+          $if: firedBy == "triggerHook"
+          else: Fired by ${firedBy}
+          then: Fired by triggerHook call from ${clientId}
+      in:
+        description: ${description}
+        name: On-Push task for https://hg.mozilla.org/try-comm-central
+        owner: mozilla-taskcluster-maintenance@mozilla.com
+        source: https://firefox-ci-tc.services.mozilla.com/hooks/hg-push/try-comm-central
+    payload:
+      command:
+      - hg-push
+      - --repo-url
+      - https://hg.mozilla.org/try-comm-central
+      - --project
+      - try-comm-central
+      - --level
+      - '1'
+      - --trust-domain
+      - comm
+      - --repository-type
+      - hg
+      env:
+        PULSE_MESSAGE:
+          $json:
+            $eval: payload
+      features:
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: highest
+    provisionerId: infra
+    retries: 5
+    routes:
+    - index.hg-push.v1.try-comm-central.revision.${payload.payload.data.heads[0]}
+    - index.hg-push.v1.try-comm-central.pushlog-id.${payload.payload.data.pushlog_pushes[0].pushid}
+    schedulerId: comm-level-1
+    scopes:
+    - assume:repo:hg.mozilla.org/try-comm-central:branch:*
+    tags: {}
+    workerType: build-decision
+  bindings:
+  - exchange: exchange/hgpushes/v2
+    routingKeyPattern: try-comm-central
+  description: 'On-push task for repository https://hg.mozilla.org/try-comm-central.
+
+
+    This hook listens to pulse messages from `hg.mozilla.org` and creates
+
+    a task which quickly creates a decision task when such a message arrives.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties:
+      _meta: {}
+      payload:
+        additionalProperties: false
+        description: Hg push payload - see https://mozilla-version-control-tools.readthedocs.io/en/latest/hgmo/notifications.html#pulse-notifications.
+        properties:
+          data:
+            additionalProperties: false
+            properties:
+              heads:
+                items:
+                - pattern: ^[0-9a-z]{40}$
+                  type: string
+                type: array
+              pushlog_pushes:
+                items:
+                - additionalProperties: false
+                  properties:
+                    push_full_json_url:
+                      type: string
+                    push_json_url:
+                      type: string
+                    pushid:
+                      default: 0
+                      type: integer
+                    time:
+                      default: 0
+                      type: integer
+                    user:
+                      default: nobody@mozilla.com
+                      format: email
+                      type: string
+                  required:
+                  - time
+                  - pushid
+                  - user
+                  type: object
+                type: array
+              repo_url:
+                default: https://hg.mozilla.org/try-comm-central
+                enum:
+                - https://hg.mozilla.org/try-comm-central
+              source: {}
+            required:
+            - repo_url
+            - heads
+            - pushlog_pushes
+            type: object
+          type:
+            default: changegroup.1
+            enum:
+            - changegroup.1
+        required:
+        - type
+        - data
+        type: object
+    required:
+    - payload
+    type: object

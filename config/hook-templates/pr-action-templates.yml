@@ -1,0 +1,100 @@
+project-ci/in-tree-pr-action-1-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action
+project-taskgraph/in-tree-pr-action-1-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action
+project-translations/in-tree-pr-action-1-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action
+project-translations/in-tree-pr-action-1-train:
+  action:
+    action_perm: train
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:train
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action

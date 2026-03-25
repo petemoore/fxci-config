@@ -1,0 +1,548 @@
+project-relman/code-coverage-cron-production:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically build code coverage reports'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-cron-production
+  name: Code coverage hook (production)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule:
+  - 0 0 12 * * *
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 4 hours
+    expires:
+      $fromNow: 1 month
+    metadata:
+      description: ''
+      name: Code Coverage aggregation task - cron (production)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-coverage
+    payload:
+      artifacts:
+        public/chunk_mapping.tar.xz:
+          path: /chunk_mapping.tar.xz
+          type: file
+        public/commit_coverage.json.zst:
+          path: /commit_coverage.json.zst
+          type: file
+        public/per_chunk_mapping.tar.xz:
+          path: /per_chunk_mapping.tar.xz
+          type: file
+        public/zero_coverage_report.json:
+          path: /zero_coverage_report.json
+          type: file
+      cache:
+        code-coverage-bot-production: /cache
+      capabilities: {}
+      command:
+      - code-coverage-cron
+      - --taskcluster-secret
+      - project/relman/code-coverage/runtime-production
+      - --cache-root
+      - /cache
+      - --working-dir
+      - /build
+      env: {}
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-coverage.branch.production
+        path: public/code-coverage-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 14400
+    priority: lowest
+    provisionerId: code-coverage
+    retries: 5
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-coverage/runtime-production
+    - docker-worker:cache:code-coverage-bot-production
+    - index:insert-task:project.relman.code-coverage.production.cron.*
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-coverage-cron-testing:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically build code coverage reports'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-cron-testing
+  name: Code coverage hook (testing)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule:
+  - 0 0 12 * * *
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 4 hours
+    expires:
+      $fromNow: 1 month
+    metadata:
+      description: ''
+      name: Code Coverage aggregation task - cron (testing)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-coverage
+    payload:
+      artifacts:
+        public/chunk_mapping.tar.xz:
+          path: /chunk_mapping.tar.xz
+          type: file
+        public/commit_coverage.json.zst:
+          path: /commit_coverage.json.zst
+          type: file
+        public/per_chunk_mapping.tar.xz:
+          path: /per_chunk_mapping.tar.xz
+          type: file
+        public/zero_coverage_report.json:
+          path: /zero_coverage_report.json
+          type: file
+      cache:
+        code-coverage-bot-testing: /cache
+      capabilities: {}
+      command:
+      - code-coverage-cron
+      - --taskcluster-secret
+      - project/relman/code-coverage/runtime-testing
+      - --cache-root
+      - /cache
+      - --working-dir
+      - /build
+      env: {}
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-coverage.branch.testing
+        path: public/code-coverage-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 14400
+    priority: lowest
+    provisionerId: code-coverage
+    retries: 5
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-coverage/runtime-testing
+    - docker-worker:cache:code-coverage-bot-testing
+    - index:insert-task:project.relman.code-coverage.testing.cron.*
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-coverage-crontrigger-production:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically trigger code coverage ingestion hook'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-crontrigger-production
+  name: Code coverage hook (production)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule:
+  - 0 */30 * * * *
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 4 hours
+    expires:
+      $fromNow: 1 month
+    metadata:
+      description: ''
+      name: Code Coverage - cron trigger task (production)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-coverage
+    payload:
+      artifacts:
+        public/triggered_revisions.zst:
+          path: /triggered_revisions.zst
+          type: file
+      capabilities: {}
+      command:
+      - code-coverage-crontrigger
+      - --taskcluster-secret
+      - project/relman/code-coverage/runtime-production
+      - --cache-root
+      - /cache
+      - --working-dir
+      - /build
+      env: {}
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-coverage.branch.production
+        path: public/code-coverage-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 300
+    priority: lowest
+    provisionerId: code-coverage
+    retries: 5
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-coverage/runtime-production
+    - index:insert-task:project.relman.code-coverage.production.crontrigger.*
+    - hooks:trigger-hook:project-relman/code-coverage-repo-production
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-coverage-crontrigger-testing:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically trigger code coverage ingestion hook'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-crontrigger-testing
+  name: Code coverage hook (testing)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule:
+  - 0 */30 * * * *
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 4 hours
+    expires:
+      $fromNow: 1 month
+    metadata:
+      description: ''
+      name: Code Coverage - cron trigger task (testing)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-coverage
+    payload:
+      artifacts:
+        public/triggered_revisions.zst:
+          path: /triggered_revisions.zst
+          type: file
+      capabilities: {}
+      command:
+      - code-coverage-crontrigger
+      - --taskcluster-secret
+      - project/relman/code-coverage/runtime-testing
+      - --cache-root
+      - /cache
+      - --working-dir
+      - /build
+      env: {}
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-coverage.branch.testing
+        path: public/code-coverage-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 300
+    priority: lowest
+    provisionerId: code-coverage
+    retries: 5
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-coverage/runtime-testing
+    - index:insert-task:project.relman.code-coverage.testing.crontrigger.*
+    - hooks:trigger-hook:project-relman/code-coverage-repo-testing
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-coverage-repo-production:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically build code coverage reports'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-repo-production
+  name: Code coverage hook (production)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule: []
+  task:
+    $merge:
+    - $if: '''taskGroupId'' in payload'
+      else: {}
+      then:
+        taskGroupId:
+          $eval: payload.taskGroupId
+    - created:
+        $fromNow: 0 seconds
+      deadline:
+        $fromNow: 4 hours
+      expires:
+        $fromNow: 1 month
+      metadata:
+        description: ''
+        name:
+          $if: '''taskName'' in payload'
+          else: Code Coverage aggregation task - repo (production)
+          then:
+            $eval: payload.taskName
+        owner: release-mgmt-analysis@mozilla.com
+        source: https://github.com/mozilla/code-coverage
+      payload:
+        cache:
+          code-coverage-bot-production: /cache
+        capabilities: {}
+        command:
+        - code-coverage-repo
+        - --taskcluster-secret
+        - project/relman/code-coverage/runtime-production
+        - --cache-root
+        - /cache
+        - --working-dir
+        - /build
+        env:
+          $eval: payload
+        features:
+          taskclusterProxy: true
+        image:
+          namespace: code-analysis.v2.code-coverage.branch.production
+          path: public/code-coverage-bot.tar.zst
+          type: indexed-image
+        maxRunTime: 14400
+      priority: lowest
+      provisionerId: code-coverage
+      retries: 5
+      schedulerId: relman
+      scopes:
+      - secrets:get:project/relman/code-coverage/runtime-production
+      - notify:email:*
+      - docker-worker:cache:code-coverage-bot-production
+      - index:insert-task:project.relman.code-coverage.production.repo.*
+      workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-coverage-repo-testing:
+  bindings: []
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically build code coverage reports'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-coverage-repo-testing
+  name: Code coverage hook (testing)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule: []
+  task:
+    $merge:
+    - $if: '''taskGroupId'' in payload'
+      else: {}
+      then:
+        taskGroupId:
+          $eval: payload.taskGroupId
+    - created:
+        $fromNow: 0 seconds
+      deadline:
+        $fromNow: 4 hours
+      expires:
+        $fromNow: 1 month
+      metadata:
+        description: ''
+        name:
+          $if: '''taskName'' in payload'
+          else: Code Coverage aggregation task - repo (testing)
+          then:
+            $eval: payload.taskName
+        owner: release-mgmt-analysis@mozilla.com
+        source: https://github.com/mozilla/code-coverage
+      payload:
+        cache:
+          code-coverage-bot-testing: /cache
+        capabilities: {}
+        command:
+        - code-coverage-repo
+        - --taskcluster-secret
+        - project/relman/code-coverage/runtime-testing
+        - --cache-root
+        - /cache
+        - --working-dir
+        - /build
+        env:
+          $eval: payload
+        features:
+          taskclusterProxy: true
+        image:
+          namespace: code-analysis.v2.code-coverage.branch.testing
+          path: public/code-coverage-bot.tar.zst
+          type: indexed-image
+        maxRunTime: 14400
+      priority: lowest
+      provisionerId: code-coverage
+      retries: 5
+      schedulerId: relman
+      scopes:
+      - secrets:get:project/relman/code-coverage/runtime-testing
+      - notify:email:*
+      - docker-worker:cache:code-coverage-bot-testing
+      - index:insert-task:project.relman.code-coverage.testing.repo.*
+      workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-review-production:
+  bindings:
+  - exchange: exchange/taskcluster-queue/v1/task-completed
+    routingKeyPattern: route.project.relman.codereview.v1.try_ending
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically create code review publication tasks'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-review-production
+  name: Code review hook (production)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule: []
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 2 hours
+    expires:
+      $fromNow: 1 month
+    extra: {}
+    metadata:
+      description: Publish issues detected in remote tasks
+      name: Code review publication (production)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-review
+    payload:
+      artifacts:
+        public/results:
+          path: /tmp/results
+          type: directory
+      cache: {}
+      capabilities: {}
+      command:
+      - code-review-bot
+      - --taskcluster-secret
+      - project/relman/code-review/runtime-production
+      env:
+        $merge:
+        - $if: firedBy == 'triggerHook'
+          else: {}
+          then:
+            $eval: payload
+        - $if: firedBy == 'pulseMessage'
+          else: {}
+          then:
+            TRY_RUN_ID:
+              $eval: payload.runId
+            TRY_TASK_GROUP_ID:
+              $eval: payload.status.taskGroupId
+            TRY_TASK_ID:
+              $eval: payload.status.taskId
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-review.branch.production
+        path: public/code-review-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 7200
+    priority: lowest
+    provisionerId: code-review
+    retries: 3
+    routes:
+    - index.project.relman.production.code-review.latest
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-review/runtime-production
+    - index:insert-task:project.relman.production.code-review.*
+    - notify:email:*
+    tags: {}
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object
+project-relman/code-review-testing:
+  bindings:
+  - exchange: exchange/taskcluster-queue/v1/task-completed
+    routingKeyPattern: route.project.relman.codereview.v1.try_ending
+  description: '*DO NOT EDIT* - This resource is configured automatically by [ci-admin](https://github.com/mozilla-releng/fxci-config).
+
+
+    Automatically create code review publication tasks'
+  emailOnError: true
+  hookGroupId: project-relman
+  hookId: code-review-testing
+  name: Code review hook (testing)
+  owner: release-mgmt-analysis@mozilla.com
+  schedule: []
+  task:
+    created:
+      $fromNow: 0 seconds
+    deadline:
+      $fromNow: 2 hours
+    expires:
+      $fromNow: 1 month
+    extra: {}
+    metadata:
+      description: Publish issues detected in remote tasks
+      name: Code review publication (testing)
+      owner: release-mgmt-analysis@mozilla.com
+      source: https://github.com/mozilla/code-review
+    payload:
+      artifacts:
+        public/results:
+          path: /tmp/results
+          type: directory
+      cache:
+        code-review-testing-checkout: /checkouts
+      capabilities: {}
+      command:
+      - code-review-bot
+      - --taskcluster-secret
+      - project/relman/code-review/runtime-testing
+      - --mercurial-repository
+      - /checkouts
+      env:
+        $merge:
+        - $if: firedBy == 'triggerHook'
+          else: {}
+          then:
+            $eval: payload
+        - $if: firedBy == 'pulseMessage'
+          else: {}
+          then:
+            TRY_RUN_ID:
+              $eval: payload.runId
+            TRY_TASK_GROUP_ID:
+              $eval: payload.status.taskGroupId
+            TRY_TASK_ID:
+              $eval: payload.status.taskId
+      features:
+        taskclusterProxy: true
+      image:
+        namespace: code-analysis.v2.code-review.branch.testing
+        path: public/code-review-bot.tar.zst
+        type: indexed-image
+      maxRunTime: 7200
+    priority: lowest
+    provisionerId: code-review
+    retries: 3
+    routes:
+    - index.project.relman.testing.code-review.latest
+    schedulerId: relman
+    scopes:
+    - secrets:get:project/relman/code-review/runtime-testing
+    - index:insert-task:project.relman.testing.code-review.*
+    - notify:email:*
+    - docker-worker:cache:code-review-testing-checkout
+    tags: {}
+    workerType: bot-gcp
+  triggerSchema:
+    additionalProperties: true
+    type: object

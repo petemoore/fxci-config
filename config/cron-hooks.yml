@@ -1,0 +1,4335 @@
+project-releng/cron-task-afranchuk-process-top-crashes:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-afranchuk-process-top-crashes
+      name: Cron task for https://github.com/afranchuk/process-top-crashes
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-afranchuk-process-top-crashes
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/afranchuk/process-top-crashes
+      - --project
+      - process-top-crashes
+      - --level
+      - '1'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mozilla
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mozilla-level-1
+    scopes:
+    - assume:hook-id:project-releng/cron-task-afranchuk-process-top-crashes
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/afranchuk/process-top-crashes.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-comm-central:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central
+      name: Cron task for https://hg.mozilla.org/comm-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/comm-central
+      - --project
+      - comm-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-comm-central
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/comm-central.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-comm-central/l10n-bumper:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/l10n-bumper
+      name: Cron task for https://hg.mozilla.org/comm-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/l10n-bumper
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/comm-central
+      - --project
+      - comm-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      - --force-run=l10n-bumper
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-comm-central/l10n-bumper
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-comm-central/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/comm-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/comm-central
+      - --project
+      - comm-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-comm-central/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-comm-central/tb-rust-vendor-check:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/tb-rust-vendor-check
+      name: Cron task for https://hg.mozilla.org/comm-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-comm-central/tb-rust-vendor-check
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/comm-central
+      - --project
+      - comm-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      - --force-run=tb-rust-vendor-check
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-comm-central/tb-rust-vendor-check
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-integration-autoland:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland
+      name: Cron task for https://hg.mozilla.org/integration/autoland
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/integration/autoland
+      - --project
+      - autoland
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-integration-autoland
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/integration/autoland.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-integration-autoland/android-l10n-import:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/android-l10n-import
+      name: Cron task for https://hg.mozilla.org/integration/autoland
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/android-l10n-import
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/integration/autoland
+      - --project
+      - autoland
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=android-l10n-import
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-integration-autoland/android-l10n-import
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-integration-autoland/l10n-bumper:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/l10n-bumper
+      name: Cron task for https://hg.mozilla.org/integration/autoland
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/l10n-bumper
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/integration/autoland
+      - --project
+      - autoland
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=l10n-bumper
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-integration-autoland/l10n-bumper
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-integration-autoland/perftest-on-autoland:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/perftest-on-autoland
+      name: Cron task for https://hg.mozilla.org/integration/autoland
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-integration-autoland/perftest-on-autoland
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/integration/autoland
+      - --project
+      - autoland
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=perftest-on-autoland
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-integration-autoland/perftest-on-autoland
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-application-services:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-application-services
+      name: Cron task for https://github.com/mozilla/application-services
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-application-services
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla/application-services
+      - --project
+      - application-services
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - app-services
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: app-services-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-application-services
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla/application-services.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-application-services/nightly:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-application-services/nightly
+      name: Cron task for https://github.com/mozilla/application-services
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-application-services/nightly
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla/application-services
+      - --project
+      - application-services
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - app-services
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=nightly
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: app-services-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-application-services/nightly
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/mozilla-central.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-central/l10n-cross-channel:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/l10n-cross-channel
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/l10n-cross-channel
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=l10n-cross-channel
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/l10n-cross-channel
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-all:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-all
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-all
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-all
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-all
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-android:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-android
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-android
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-android
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-android
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop-linux:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-linux
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-linux
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-linux
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop-linux
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop-osx:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-osx
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-osx
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-osx
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop-osx
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop-win32:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win32
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win32
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win32
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop-win32
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop-win64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win64
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop-win64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/nightly-desktop-win64-aarch64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win64-aarch64
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/nightly-desktop-win64-aarch64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64-aarch64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/nightly-desktop-win64-aarch64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/periodic-update:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/periodic-update
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/periodic-update
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=periodic-update
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/periodic-update
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/scriptworker-canary:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/scriptworker-canary
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/scriptworker-canary
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=scriptworker-canary
+      env:
+        HOOK_PAYLOAD:
+          $json:
+            $eval: payload
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/scriptworker-canary
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: true
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-central/system-symbols:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/system-symbols
+      name: Cron task for https://hg.mozilla.org/mozilla-central
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-central/system-symbols
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/mozilla-central
+      - --project
+      - mozilla-central
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=system-symbols
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-central/system-symbols
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-extensions-xpi-manifest:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-extensions-xpi-manifest
+      name: Cron task for https://github.com/mozilla-extensions/xpi-manifest
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-extensions-xpi-manifest
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-extensions/xpi-manifest
+      - --project
+      - xpi-manifest
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - xpi
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: xpi-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-extensions-xpi-manifest
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-extensions/xpi-manifest.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-fx-desktop-qa-automation:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-fx-desktop-qa-automation
+      name: Cron task for https://github.com/mozilla/fx-desktop-qa-automation
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-fx-desktop-qa-automation
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla/fx-desktop-qa-automation
+      - --project
+      - fx-desktop-qa-automation
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mozilla
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mozilla-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-fx-desktop-qa-automation
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla/fx-desktop-qa-automation.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-mobile-firefox-ios:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios
+      name: Cron task for https://github.com/mozilla-mobile/firefox-ios
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/firefox-ios
+      - --project
+      - firefox-ios
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-firefox-ios
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-mobile/firefox-ios.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-mobile-firefox-ios/bitrise-performance-test:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/bitrise-performance-test
+      name: Cron task for https://github.com/mozilla-mobile/firefox-ios
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/bitrise-performance-test
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/firefox-ios
+      - --project
+      - firefox-ios
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=bitrise-performance-test
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-firefox-ios/bitrise-performance-test
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-mobile-firefox-ios/firebase-performance-test:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/firebase-performance-test
+      name: Cron task for https://github.com/mozilla-mobile/firefox-ios
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/firebase-performance-test
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/firefox-ios
+      - --project
+      - firefox-ios
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=firebase-performance-test
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-firefox-ios/firebase-performance-test
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-mobile-firefox-ios/l10-screenshots:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/l10-screenshots
+      name: Cron task for https://github.com/mozilla-mobile/firefox-ios
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-firefox-ios/l10-screenshots
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/firefox-ios
+      - --project
+      - firefox-ios
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=l10-screenshots
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-firefox-ios/l10-screenshots
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-mobile-reference-browser:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser
+      name: Cron task for https://github.com/mozilla-mobile/reference-browser
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/reference-browser
+      - --project
+      - reference-browser
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - master
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-reference-browser
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-mobile/reference-browser.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-mobile-reference-browser/bump-android-comp:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser/bump-android-comp
+      name: Cron task for https://github.com/mozilla-mobile/reference-browser
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser/bump-android-comp
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/reference-browser
+      - --project
+      - reference-browser
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - master
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=bump-android-comp
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-reference-browser/bump-android-comp
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-mobile-reference-browser/nightly:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser/nightly
+      name: Cron task for https://github.com/mozilla-mobile/reference-browser
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-mobile-reference-browser/nightly
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-mobile/reference-browser
+      - --project
+      - reference-browser
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - master
+      - --trust-domain
+      - mobile
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=nightly
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: mobile-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-mobile-reference-browser/nightly
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-releng-fxci-config:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-fxci-config
+      name: Cron task for https://github.com/mozilla-releng/fxci-config
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-fxci-config
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-releng/fxci-config
+      - --project
+      - fxci-config
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - ci
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: ci-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-releng-fxci-config
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-releng/fxci-config.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-releng-fxci-config/test-build-decision:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-fxci-config/test-build-decision
+      name: Cron task for https://github.com/mozilla-releng/fxci-config
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-fxci-config/test-build-decision
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-releng/fxci-config
+      - --project
+      - fxci-config
+      - --level
+      - '3'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - ci
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      - --force-run=test-build-decision
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: ci-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-releng-fxci-config/test-build-decision
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-mozilla-releng-staging-application-services:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-staging-application-services
+      name: Cron task for https://github.com/mozilla-releng/staging-application-services
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-staging-application-services
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-releng/staging-application-services
+      - --project
+      - staging-application-services
+      - --level
+      - '1'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - app-services
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: app-services-level-1
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-releng-staging-application-services
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-releng/staging-application-services.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-mozilla-releng-staging-xpi-manifest:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-staging-xpi-manifest
+      name: Cron task for https://github.com/mozilla-releng/staging-xpi-manifest
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-mozilla-releng-staging-xpi-manifest
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://github.com/mozilla-releng/staging-xpi-manifest
+      - --project
+      - staging-xpi-manifest
+      - --level
+      - '1'
+      - --repository-type
+      - git
+      - --branch
+      - main
+      - --trust-domain
+      - xpi
+      - --github-token-secret
+      - project/releng/mobile/github-cron-token
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.release+failedcron@mozilla.com.on-failed
+    - notify.email.release+exceptioncron@mozilla.com.on-exception
+    schedulerId: xpi-level-1
+    scopes:
+    - assume:hook-id:project-releng/cron-task-mozilla-releng-staging-xpi-manifest
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://github.com/mozilla-releng/staging-xpi-manifest.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-birch:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-birch
+      name: Cron task for https://hg.mozilla.org/projects/birch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-birch
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/birch
+      - --project
+      - birch
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-birch
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/birch.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-birch/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-birch/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/projects/birch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-birch/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/birch
+      - --project
+      - birch
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-birch/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-cedar:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar
+      name: Cron task for https://hg.mozilla.org/projects/cedar
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/cedar
+      - --project
+      - cedar
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-cedar
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/cedar.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-cedar/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/projects/cedar
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/cedar
+      - --project
+      - cedar
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-cedar/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-cedar/nightly-desktop-osx:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop-osx
+      name: Cron task for https://hg.mozilla.org/projects/cedar
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop-osx
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/cedar
+      - --project
+      - cedar
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-osx
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-cedar/nightly-desktop-osx
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-cedar/nightly-desktop-win64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop-win64
+      name: Cron task for https://hg.mozilla.org/projects/cedar
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cedar/nightly-desktop-win64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/cedar
+      - --project
+      - cedar
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-cedar/nightly-desktop-win64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-cypress:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cypress
+      name: Cron task for https://hg.mozilla.org/projects/cypress
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-cypress
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/cypress
+      - --project
+      - cypress
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-cypress
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/cypress.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-elm:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-elm
+      name: Cron task for https://hg.mozilla.org/projects/elm
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-elm
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/elm
+      - --project
+      - elm
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-elm
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/elm.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-larch:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/larch.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-larch/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-larch/nightly-desktop-linux:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-linux
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-linux
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-linux
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop-linux
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-larch/nightly-desktop-osx:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-osx
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-osx
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-osx
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop-osx
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-larch/nightly-desktop-win32:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win32
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win32
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win32
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop-win32
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-larch/nightly-desktop-win64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win64
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop-win64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-larch/nightly-desktop-win64-aarch64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win64-aarch64
+      name: Cron task for https://hg.mozilla.org/projects/larch
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-larch/nightly-desktop-win64-aarch64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/larch
+      - --project
+      - larch
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64-aarch64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-larch/nightly-desktop-win64-aarch64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-maple:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-maple
+      name: Cron task for https://hg.mozilla.org/projects/maple
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-maple
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/maple
+      - --project
+      - maple
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-maple
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/maple.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-maple/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-maple/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/projects/maple
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-maple/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/maple
+      - --project
+      - maple
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-maple/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-oak:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-oak
+      name: Cron task for https://hg.mozilla.org/projects/oak
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-oak
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/oak
+      - --project
+      - oak
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-oak
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/oak.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-oak/nightly-android:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-oak/nightly-android
+      name: Cron task for https://hg.mozilla.org/projects/oak
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-oak/nightly-android
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/oak
+      - --project
+      - oak
+      - --level
+      - '2'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-android
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-2
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-oak/nightly-android
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/projects/pine.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-projects-pine/nightly-desktop:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine/nightly-desktop-linux:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-linux
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-linux
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-linux
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop-linux
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine/nightly-desktop-osx:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-osx
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-osx
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-osx
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop-osx
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine/nightly-desktop-win32:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win32
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win32
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win32
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop-win32
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine/nightly-desktop-win64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win64
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop-win64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-projects-pine/nightly-desktop-win64-aarch64:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win64-aarch64
+      name: Cron task for https://hg.mozilla.org/projects/pine
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-projects-pine/nightly-desktop-win64-aarch64
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/projects/pine
+      - --project
+      - pine
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=nightly-desktop-win64-aarch64
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-projects-pine/nightly-desktop-win64-aarch64
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-comm-beta:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-beta
+      name: Cron task for https://hg.mozilla.org/releases/comm-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-beta
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-beta
+      - --project
+      - comm-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-comm-beta
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/comm-beta.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-comm-beta/l10n-bumper:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-beta/l10n-bumper
+      name: Cron task for https://hg.mozilla.org/releases/comm-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-beta/l10n-bumper
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-beta
+      - --project
+      - comm-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      - --force-run=l10n-bumper
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-comm-beta/l10n-bumper
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-comm-esr115:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-esr115
+      name: Cron task for https://hg.mozilla.org/releases/comm-esr115
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-esr115
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-esr115
+      - --project
+      - comm-esr115
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-comm-esr115
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/comm-esr115.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-comm-esr128:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-esr128
+      name: Cron task for https://hg.mozilla.org/releases/comm-esr128
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-esr128
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-esr128
+      - --project
+      - comm-esr128
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-comm-esr128
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/comm-esr128.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-comm-release:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-release
+      name: Cron task for https://hg.mozilla.org/releases/comm-release
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-comm-release
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/comm-release
+      - --project
+      - comm-release
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - comm
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: comm-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-comm-release
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/comm-release.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-mozilla-beta:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-beta
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/mozilla-beta.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-mozilla-beta/android-l10n-sync:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/android-l10n-sync
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/android-l10n-sync
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=android-l10n-sync
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-beta/android-l10n-sync
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-beta/daily-releases:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/daily-releases
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/daily-releases
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=daily-releases
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-beta/daily-releases
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-beta/l10n-bumper:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/l10n-bumper
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/l10n-bumper
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=l10n-bumper
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-beta/l10n-bumper
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-beta/periodic-update:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/periodic-update
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-beta
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-beta/periodic-update
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-beta
+      - --project
+      - mozilla-beta
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=periodic-update
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-beta/periodic-update
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-esr115:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr115
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-esr115
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr115
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr115
+      - --project
+      - mozilla-esr115
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-esr115
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/mozilla-esr115.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-mozilla-esr115/periodic-update:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr115/periodic-update
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-esr115
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr115/periodic-update
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr115
+      - --project
+      - mozilla-esr115
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=periodic-update
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-esr115/periodic-update
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-esr128:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr128
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-esr128
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr128
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr128
+      - --project
+      - mozilla-esr128
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-esr128
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/mozilla-esr128.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-mozilla-esr128/periodic-update:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr128/periodic-update
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-esr128
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-esr128/periodic-update
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-esr128
+      - --project
+      - mozilla-esr128
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=periodic-update
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-esr128/periodic-update
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+project-releng/cron-task-releases-mozilla-release:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-release
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-release
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-release
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-release
+      - --project
+      - mozilla-release
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-release
+    tags: {}
+    workerType: build-decision
+  description: 'Cron task for repository https://hg.mozilla.org/releases/mozilla-release.
+
+
+    This hook is fired every 15 minutes, creating a task that consults .cron.yml in
+
+    the corresponding repository.
+
+    '
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+  schedule:
+  - 0 0,15,30,45 * * * *
+project-releng/cron-task-releases-mozilla-release/periodic-update:
+  task:
+    deadline:
+      $fromNow: 1 hour
+    expires:
+      $fromNow: 7 days
+    extra: {}
+    metadata:
+      description: See https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-release/periodic-update
+      name: Cron task for https://hg.mozilla.org/releases/mozilla-release
+      owner: mozilla-taskcluster-maintenance@mozilla.com
+      source: https://firefox-ci-tc.services.mozilla.com/hooks/#project-releng/cron-task-releases-mozilla-release/periodic-update
+    payload:
+      command:
+      - cron
+      - --repo-url
+      - https://hg.mozilla.org/releases/mozilla-release
+      - --project
+      - mozilla-release
+      - --level
+      - '3'
+      - --repository-type
+      - hg
+      - --branch
+      - default
+      - --trust-domain
+      - gecko
+      - --force-run=periodic-update
+      env: {}
+      features:
+        chainOfTrust: true
+        taskclusterProxy: true
+      image: mozillareleases/build-decision:d9b4a81d8e114107d174994bf6be3968b34ca0db@sha256:5b1d21483c08c0698dd7f0b41f99482277375de5e5304ada1ad9d927d3899d7d
+      maxRunTime: 600
+    priority: normal
+    provisionerId: infra
+    retries: 5
+    routes:
+    - notify.email.ciduty+failedcron@mozilla.com.on-failed
+    - notify.email.ciduty+exceptioncron@mozilla.com.on-exception
+    - notify.email.sheriffs+failedcron@mozilla.org.on-failed
+    - notify.email.sheriffs+exceptioncron@mozilla.org.on-exception
+    schedulerId: gecko-level-3
+    scopes:
+    - assume:hook-id:project-releng/cron-task-releases-mozilla-release/periodic-update
+    tags: {}
+    workerType: build-decision
+  description: FIXME
+  triggerSchema:
+    additionalProperties: false
+    properties: {}
+    type: object

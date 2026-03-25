@@ -1,0 +1,124 @@
+default:
+  additionalProperties: false
+  description: "Information required to trigger this hook.  This is provided by the\n            `hookPayload` template in the `actions.json` file generated in-tree."
+  properties:
+    decision:
+      additionalProperties: false
+      description: "Information provided by the decision task; this is usually baked into\n            `actions.json`, although any value could be supplied in a direct call to\n            `hooks.triggerHook`."
+      properties:
+        action:
+          additionalProperties: false
+          description: Information about the action to perform
+          properties:
+            cb_name:
+              description: name of the in-tree callback function
+              type: string
+            description:
+              description: action description
+              type: string
+            name:
+              description: action name
+              type: string
+            symbol:
+              description: treeherder symbol
+              type: string
+            taskGroupId:
+              description: taskGroupId of the decision task
+              type: string
+            title:
+              description: action title
+              type: string
+          required:
+          - cb_name
+          - description
+          - name
+          - symbol
+          - taskGroupId
+          - title
+          type: object
+        parameters:
+          additionalProperties: true
+          description: decision task parameters
+          type: object
+        push:
+          additionalProperties: false
+          description: Information about the push that created the decision task
+          properties:
+            base_branch:
+              description: branch this pull request is based on, if applicable
+              type: string
+            base_revision:
+              description: revision before the push occurred
+              type: string
+            branch:
+              description: branch revision of original push is from
+              type: string
+            owner:
+              description: user who made the original push
+              type: string
+            pushlog_id:
+              description: Mercurial pushlog ID of the original push
+              type: string
+            revision:
+              description: revision of the original push
+              type: string
+          required:
+          - owner
+          - pushlog_id
+          - revision
+          type: object
+        repository:
+          additionalProperties: false
+          description: Information about the repository where the push occurred
+          properties:
+            base_url:
+              description: repository URL to use when checking scopes for this action
+              type: string
+            level:
+              description: repository SCM level
+              type: string
+            project:
+              description: repository project name (also known as "alias")
+              type: string
+            url:
+              description: repository URL (without trailing slash)
+              pattern: '[^/]$'
+              type: string
+          required:
+          - level
+          - project
+          - url
+          type: object
+      required:
+      - action
+      - push
+      - repository
+      type: object
+    user:
+      additionalProperties: false
+      description: Information provided by the user or user interface
+      properties:
+        input:
+          anyOf:
+          - description: user input for the task
+            type: object
+          - const: null
+            description: null when the action takes no input
+        taskGroupId:
+          description: taskGroupId on which this task was activated
+          type: string
+        taskId:
+          anyOf:
+          - description: taskId of the task on which this action was activated
+            type: string
+          - const: null
+            description: null when the action is activated for a taskGroup
+      required:
+      - input
+      - taskGroupId
+      - taskId
+      type: object
+  required:
+  - decision
+  - user
+  type: object

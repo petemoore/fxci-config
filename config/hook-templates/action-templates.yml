@@ -1,0 +1,675 @@
+in-tree-action-1-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-release-promotion:
+  action:
+    action_perm: release-promotion
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:release-promotion
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-release-promotion:
+  action:
+    action_perm: release-promotion
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:release-promotion
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-backfill:
+  action:
+    action_perm: backfill
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:backfill
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-merge-automation:
+  action:
+    action_perm: merge-automation
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:merge-automation
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-purge-caches:
+  action:
+    action_perm: purge-caches
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:purge-caches
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-retrigger-decision:
+  action:
+    action_perm: retrigger-decision
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:retrigger-decision
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-backfill:
+  action:
+    action_perm: backfill
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:backfill
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-merge-automation:
+  action:
+    action_perm: merge-automation
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:merge-automation
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-purge-caches:
+  action:
+    action_perm: purge-caches
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:purge-caches
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-release-promotion:
+  action:
+    action_perm: release-promotion
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:release-promotion
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-retrigger-decision:
+  action:
+    action_perm: retrigger-decision
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:retrigger-decision
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-backfill:
+  action:
+    action_perm: backfill
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:backfill
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-merge-automation:
+  action:
+    action_perm: merge-automation
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:merge-automation
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-purge-caches:
+  action:
+    action_perm: purge-caches
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:purge-caches
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-retrigger-decision:
+  action:
+    action_perm: retrigger-decision
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:retrigger-decision
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-googleplay:
+  action:
+    action_perm: googleplay
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:googleplay
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-scriptworker-canary:
+  action:
+    action_perm: scriptworker-canary
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:scriptworker-canary
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-googleplay:
+  action:
+    action_perm: googleplay
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:googleplay
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-2-scriptworker-canary:
+  action:
+    action_perm: scriptworker-canary
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:scriptworker-canary
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-googleplay:
+  action:
+    action_perm: googleplay
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:googleplay
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-3-scriptworker-canary:
+  action:
+    action_perm: scriptworker-canary
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:scriptworker-canary
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-action-1-train:
+  action:
+    action_perm: train
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.url[8:]}:action:train
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: action
+in-tree-pr-action-1-generic:
+  action:
+    action_perm: generic
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:generic
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action
+in-tree-pr-action-1-train:
+  action:
+    action_perm: train
+    cb_name: ${payload.decision.action.cb_name}
+    description: ${payload.decision.action.description}
+    name: ${payload.decision.action.name}
+    repo_scope: assume:repo:${payload.decision.repository.base_url[8:]}:action:train
+    symbol: ${payload.decision.action.symbol}
+    taskGroupId: ${payload.decision.action.taskGroupId}
+    title: ${payload.decision.action.title}
+  input:
+    $eval: payload.user.input
+  ownTaskId:
+    $eval: taskId
+  parameters:
+    $eval: payload.decision['parameters']
+  push:
+    $eval: payload.decision.push
+  repository:
+    $eval: payload.decision.repository
+  taskGroupId:
+    $eval: payload.user.taskGroupId
+  taskId:
+    $eval: payload.user.taskId
+  tasks_for: pr-action
